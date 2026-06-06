@@ -83,8 +83,12 @@ const Supabase = {
       throw new Error('Runtime configuration not found');
     }
     const config = await resp.json();
-    this.init(config);
-    return config;
+    const normalized = {
+      url: config.SUPABASE_URL || config.supabaseUrl,
+      key: config.SUPABASE_ANON_KEY || config.supabaseAnonKey
+    };
+    this.init(normalized);
+    return normalized;
   },
 
   async insertNotification(notification) {

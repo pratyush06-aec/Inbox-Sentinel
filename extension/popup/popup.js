@@ -20,8 +20,12 @@ connectBtn.addEventListener('click', () => {
       connectBtn.textContent = 'Connected';
       fetchEmails();
     } else {
-      statusEl.textContent = 'Connect failed';
-      console.error('auth connect failed', resp && resp.error);
+      console.error('auth connect failed', resp);
+      statusEl.textContent =
+        'Connect failed: ' + (resp?.error || 'Unknown error');
+      if (resp?.stack) {
+        statusEl.textContent += '\n' + resp.stack;
+      }
     }
   });
 });
@@ -86,8 +90,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     } else {
       const runtimeConfig = await loadRuntimeConfig();
       if (runtimeConfig) {
-        supabaseUrlInput.value = runtimeConfig.SUPABASE_URL || '';
-        supabaseKeyInput.value = runtimeConfig.SUPABASE_ANON_KEY || '';
+        supabaseUrlInput.value = runtimeConfig.SUPABASE_URL || runtimeConfig.supabaseUrl || '';
+        supabaseKeyInput.value = runtimeConfig.SUPABASE_ANON_KEY || runtimeConfig.supabaseAnonKey || '';
       }
     }
   });

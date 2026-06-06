@@ -24,12 +24,49 @@ chrome.alarms.onAlarm.addListener((alarm) => {
   }
 });
 
+async function loadSupabaseConfig() {
+  const storage = await new Promise((resolve) => chrome.storage.local.get('supabase_config', (items) => resolve(items)));
+  const cfg = storage && storage.supabase_config;
+  if (cfg && cfg.url && cfg.key) {
+    Supabase.init({ url: cfg.url, key: cfg.key });
+    return cfg;
+  }
+
+  return Supabase.loadRuntimeConfig();
+}
+
+async function ensureSupabaseUser(accessToken) {
+  try {
+    const profile = await Gmail.getProfile(accessToken);
+    const userEmail = profile && profile.emailAddress;
+    if (!userEmail) return null;
+
+    const storage = await new Promise((resolve) => chrome.storage.local.get(['supabase_user', 'supabase_config'], (items) => resolve(items)));
+    const savedUser = storage && storage.supabase_user;
+    if (savedUser && savedUser.id) {
+      return savedUser;
+    }
+
+    await loadSupabaseConfig();
+    const result = await Supabase.upsertUser({ email: userEmail });
+    const user = Array.isArray(result) && result.length > 0 ? result[0] : result;
+    if (user && user.id) {
+      chrome.storage.local.set({ supabase_user: { id: user.id, email: user.email || userEmail } });
+      return user;
+    }
+    return null;
+  } catch (err) {
+    console.warn('Failed to ensure Supabase user record', err);
+    return null;
+  }
+}
+
 // Handle runtime messages from popup and other extension contexts
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message && message.type === 'auth:connect') {
     Auth.signIn()
       .then((record) => sendResponse({ success: true, record }))
-      .catch((err) => sendResponse({ success: false, error: err.message }));
+      .catch((err) => sendResponse({ success: false, error: err.message, stack: err.stack }));
     // indicate we will send response asynchronously
     return true;
   }
@@ -42,8 +79,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
   if (message && message.type === 'gmail:fetch') {
     Auth.getToken()
-      .then((token) => {
+      .then(async (token) => {
         if (!token || !token.access_token) throw new Error('not_authenticated');
+        await ensureSupabaseUser(token.access_token);
         return Gmail.listCategoryMessages(token.access_token, message.maxResults || 20);
       })
       .then((emails) => sendResponse({ success: true, emails }))

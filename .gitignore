@@ -2,4 +2,6 @@ node_modules/
 dist/
 .DS_Store
 extension/node_modules/
-.env.example
+.env
+extension.pem
+

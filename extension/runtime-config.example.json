@@ -1,0 +1,5 @@
+{
+  "googleClientId": "YOUR_GOOGLE_OAUTH_CLIENT_ID",
+  "supabaseUrl": "https://your-project.supabase.co",
+  "supabaseAnonKey": "YOUR_SUPABASE_PUBLISHABLE_KEY"
+}

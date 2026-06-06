@@ -1,0 +1,39 @@
+{
+  "manifest_version": 3,
+  "name": "Inbox Sentinel",
+  "short_name": "InboxSentinel",
+  "description": "Never miss an important email hidden in Promotions, Social, or Updates.",
+  "version": "0.1.0",
+  "icons": {
+    "16": "assets/icon-16.png",
+    "48": "assets/icon-48.png",
+    "128": "assets/icon-128.png"
+  },
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "Inbox Sentinel"
+  },
+  "background": {
+    "service_worker": "background/service-worker.js",
+    "type": "module"
+  },
+  "permissions": [
+    "storage",
+    "notifications",
+    "alarms",
+    "identity"
+  ],
+  "host_permissions": [
+    "https://www.googleapis.com/*",
+    "https://*.supabase.co/*"
+  ],
+  "oauth2": {
+    "client_id": "<YOUR_GOOGLE_OAUTH_CLIENT_ID>",
+    "scopes": [
+      "openid",
+      "email",
+      "profile",
+      "https://www.googleapis.com/auth/gmail.readonly"
+    ]
+  }
+}

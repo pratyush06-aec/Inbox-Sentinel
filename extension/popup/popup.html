@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Inbox Sentinel</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header>
+        <div>
+          <h1>Inbox Sentinel</h1>
+          <p class="tagline">Never miss important emails hidden in Promotions, Social, or Updates.</p>
+        </div>
+        <button id="connect">Connect Gmail</button>
+      </header>
+      <section class="panel">
+        <h2>Supabase</h2>
+        <div class="field">
+          <label for="supabase-url">Supabase URL</label>
+          <input id="supabase-url" type="url" placeholder="https://xyz.supabase.co" />
+        </div>
+        <div class="field">
+          <label for="supabase-key">Supabase Anon Key</label>
+          <input id="supabase-key" type="text" placeholder="public-anon-key" />
+        </div>
+        <button id="save-config">Save Settings</button>
+      </section>
+      <section class="panel">
+        <div class="toolbar">
+          <div>
+            <div class="tabs">
+              <button type="button" data-tab="inbox" class="active">Inbox</button>
+              <button type="button" data-tab="important">Important</button>
+            </div>
+            <div id="status">Not connected</div>
+          </div>
+          <button id="refresh">Refresh</button>
+        </div>
+        <div class="filters">
+          <button type="button" data-filter="All" class="active">All</button>
+          <button type="button" data-filter="Promotions">Promotions</button>
+          <button type="button" data-filter="Social">Social</button>
+          <button type="button" data-filter="Updates">Updates</button>
+        </div>
+        <ul id="emails"></ul>
+      </section>
+    </div>
+    <script src="popup.js"></script>
+  </body>
+</html>

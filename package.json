@@ -1,0 +1,16 @@
+{
+  "name": "inbox-sentinel-extension",
+  "version": "0.1.0",
+  "description": "Inbox Sentinel browser extension for Gmail category recovery.",
+  "type": "module",
+  "scripts": {
+    "test": "jest",
+    "build": "node scripts/build-extension.js",
+    "package": "npm run build && node scripts/package-extension.js"
+  },
+  "devDependencies": {
+    "archiver": "^5.3.1",
+    "dotenv": "^16.3.1",
+    "jest": "^29.5.0"
+  }
+}

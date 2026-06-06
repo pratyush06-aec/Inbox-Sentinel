@@ -1,0 +1,28 @@
+body{font-family:Arial,Helvetica,sans-serif;margin:0;padding:12px;width:380px;background:#fafafa;color:#111}
+header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+header h1{margin:0;font-size:1.1rem}
+.tagline{margin:4px 0 0;font-size:.88rem;color:#555}
+.panel{background:#fff;border:1px solid #e1e1e1;border-radius:12px;padding:12px;margin-top:12px}
+.field{display:flex;flex-direction:column;margin-bottom:10px}
+.field label{font-size:.82rem;color:#444;margin-bottom:4px}
+.field input{padding:8px;border:1px solid #ccc;border-radius:8px;font-size:.95rem}
+button{border:none;border-radius:10px;padding:8px 12px;background:#1b76ff;color:#fff;cursor:pointer;transition:background .2s ease}
+button:hover{background:#0558d8}
+button.active, .filters button.active{background:#222;color:#fff}
+#status{font-size:.95rem;color:#333;margin-top:8px}
+.tabs{display:flex;gap:6px;margin-bottom:8px}
+.tabs button{background:#f1f1f1;color:#333;padding:6px 10px;border-radius:8px}
+.tabs button.active{background:#222;color:#fff}
+.toolbar{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+.filters button{background:#f1f1f1;color:#333;padding:6px 10px;border-radius:8px}
+.filters button:hover{background:#e1e1e1}
+#emails{list-style:none;padding:0;margin-top:10px}
+#emails li{padding:10px;border-bottom:1px solid #eee;display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center}
+.email-meta{font-size:.9rem;line-height:1.4}
+.email-category{font-weight:600;color:#1b76ff;margin-bottom:4px}
+.email-action button{background:#414141}
+.email-action button:hover{background:#222}
+.email-subject{color:#222;font-weight:600}
+.email-sender{color:#555}
+.email-snippet{color:#666;font-size:.85rem;margin-top:4px}
